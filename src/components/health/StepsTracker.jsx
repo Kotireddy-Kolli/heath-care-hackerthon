@@ -1,4 +1,4 @@
-import { Box, LinearProgress, Typography } from '@mui/material';
+import { Box, LinearProgress, Typography, Chip } from '@mui/material';
 import DirectionsWalkIcon from '@mui/icons-material/DirectionsWalk';
 import { useSelector } from 'react-redux';
 import { selectSteps } from '../../store/slices/healthSlice';
@@ -25,6 +25,13 @@ const StepsTracker = () => {
         >
           /{goal.toLocaleString()} steps
         </Typography>
+        <Box ml={2}>
+          {progress >= 100 ? (
+            <Chip label="Goal met" color="success" size="small" />
+          ) : (
+            <Chip label={`${Math.round(progress)}%`} size="small" />
+          )}
+        </Box>
       </Box>
       <Box position="relative" mt={2}>
         <LinearProgress
