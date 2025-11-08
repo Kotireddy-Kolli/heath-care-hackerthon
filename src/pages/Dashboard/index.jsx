@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button, Typography, Paper, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import HealthDashboard from "../../components/dashboard/HealthDashboard";
 
 export default function Dashboard() {
   const [patients, setPatients] = useState([]);
@@ -33,6 +34,7 @@ export default function Dashboard() {
           </Typography>
         ))}
       </Box>
+      <HealthDashboard />
     </Paper>
   );
 }
