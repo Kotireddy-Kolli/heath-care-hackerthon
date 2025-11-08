@@ -1,0 +1,15 @@
+node_modules
+dist
+build
+.git
+.vite
+coverage
+public
+*.lock
+!package.json
+/.husky
+/.github
+/*.log
+/*.tmp
+**/bundle.js
+coverage/

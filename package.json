@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "start": "react-scripts start",
     "start:api": "json-server --watch db.json --port 4000 --delay 500",
-    "start:all": "concurrently \"npm run start\" \"npm run start:api\""
+    "start:all": "concurrently \"npm run start\" \"npm run start:api\"",
+    "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,css,json,md,html}\" \"*.json\""
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -37,6 +38,7 @@
     "eslint-plugin-react-refresh": "^0.4.22",
     "globals": "^16.4.0",
     "json-server": "^1.0.0-beta.3",
+    "prettier": "^2.8.8",
     "vite": "^7.1.7"
   }
 }
