@@ -9,10 +9,7 @@ const StepsTracker = () => {
   const progress = Math.min((current / goal) * 100, 100);
 
   return (
-    <StatsCard
-      title="Steps"
-      icon={<DirectionsWalkIcon color="primary" />}
-    >
+    <StatsCard title="Steps" icon={<DirectionsWalkIcon color="primary" />}>
       <Box display="flex" alignItems="baseline" mb={1}>
         <Typography variant="h4" component="span" fontWeight="bold">
           {current.toLocaleString()}

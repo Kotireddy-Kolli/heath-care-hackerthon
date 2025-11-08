@@ -1,7 +1,7 @@
-import React from "react";
-import { useNavigate, Link } from "react-router-dom";
-import { useForm } from "react-hook-form";
-import { TextField, Button, Paper, Box, Typography } from "@mui/material";
+import React from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { TextField, Button, Paper, Box, Typography } from '@mui/material';
 
 export default function Login() {
   const navigate = useNavigate();
@@ -12,41 +12,41 @@ export default function Login() {
     setError,
   } = useForm();
 
-  const onSubmit = async (data) => {
+  const onSubmit = async data => {
     try {
-      const res = await fetch("http://localhost:4000/users");
+      const res = await fetch('http://localhost:4000/users');
       const users = await res.json();
       const user = users.find(
-        (u) => u.email === data.email && u.password === data.password
+        u => u.email === data.email && u.password === data.password
       );
-      if (!user) throw new Error("Invalid credentials");
-      localStorage.setItem("token", JSON.stringify(user));
-      navigate("/dashboard");
+      if (!user) throw new Error('Invalid credentials');
+      localStorage.setItem('token', JSON.stringify(user));
+      navigate('/dashboard');
     } catch (err) {
-      setError("root", { message: err.message });
+      setError('root', { message: err.message });
     }
   };
 
   return (
-    <Paper sx={{ p: 4, maxWidth: 400, mx: "auto", mt: 8 }}>
+    <Paper sx={{ p: 4, maxWidth: 400, mx: 'auto', mt: 8 }}>
       <Typography variant="h5" align="center" gutterBottom>
         Login
       </Typography>
       <Box
         component="form"
         onSubmit={handleSubmit(onSubmit)}
-        sx={{ display: "flex", flexDirection: "column", gap: 2 }}
+        sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}
       >
         <TextField
           label="Email"
-          {...register("email", { required: "Email is required" })}
+          {...register('email', { required: 'Email is required' })}
           error={!!errors.email}
           helperText={errors.email?.message}
         />
         <TextField
           label="Password"
           type="password"
-          {...register("password", { required: "Password is required" })}
+          {...register('password', { required: 'Password is required' })}
           error={!!errors.password}
           helperText={errors.password?.message}
         />
@@ -56,13 +56,13 @@ export default function Login() {
         <Button type="submit" variant="contained" disabled={isSubmitting}>
           Login
         </Button>
-        <Box sx={{ display: "flex", justifyContent: "space-between", mt: 1 }}>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 1 }}>
           <Link to="/register/internal">Register (Internal)</Link>
           <Link to="/register/external">Register (External)</Link>
         </Box>
         <Link
           to="/forgot-password"
-          style={{ fontSize: 14, textAlign: "center" }}
+          style={{ fontSize: 14, textAlign: 'center' }}
         >
           Forgot Password?
         </Link>

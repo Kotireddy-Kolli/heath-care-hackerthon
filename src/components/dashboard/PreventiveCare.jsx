@@ -1,4 +1,14 @@
-import { Paper, Typography, List, ListItem, ListItemIcon, ListItemText, Button, Snackbar, Alert } from '@mui/material';
+import {
+  Paper,
+  Typography,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Button,
+  Snackbar,
+  Alert,
+} from '@mui/material';
 import EventIcon from '@mui/icons-material/Event';
 import { styled } from '@mui/material/styles';
 import { useState } from 'react';
@@ -12,15 +22,23 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
 }));
 
 const PreventiveCare = ({ reminders = [], onSendReminder }) => {
-  const [snack, setSnack] = useState({ open: false, message: '', severity: 'success' });
+  const [snack, setSnack] = useState({
+    open: false,
+    message: '',
+    severity: 'success',
+  });
 
-  const handleSend = async (reminder) => {
+  const handleSend = async reminder => {
     if (typeof onSendReminder === 'function') {
       try {
         await onSendReminder(reminder);
         setSnack({ open: true, message: 'Reminder sent', severity: 'success' });
       } catch (err) {
-        setSnack({ open: true, message: err.message || 'Failed to send reminder', severity: 'error' });
+        setSnack({
+          open: true,
+          message: err.message || 'Failed to send reminder',
+          severity: 'error',
+        });
       }
     }
   };
@@ -36,12 +54,13 @@ const PreventiveCare = ({ reminders = [], onSendReminder }) => {
             <ListItemIcon>
               <EventIcon color="primary" />
             </ListItemIcon>
-            <ListItemText 
-              primary={reminder.title}
-              secondary={reminder.date}
-            />
+            <ListItemText primary={reminder.title} secondary={reminder.date} />
             {onSendReminder && (
-              <Button variant="outlined" size="small" onClick={() => handleSend(reminder)}>
+              <Button
+                variant="outlined"
+                size="small"
+                onClick={() => handleSend(reminder)}
+              >
                 Send Reminder
               </Button>
             )}
@@ -49,8 +68,16 @@ const PreventiveCare = ({ reminders = [], onSendReminder }) => {
         ))}
       </List>
 
-      <Snackbar open={snack.open} autoHideDuration={3000} onClose={() => setSnack({ ...snack, open: false })}>
-        <Alert severity={snack.severity} onClose={() => setSnack({ ...snack, open: false })} sx={{ width: '100%' }}>
+      <Snackbar
+        open={snack.open}
+        autoHideDuration={3000}
+        onClose={() => setSnack({ ...snack, open: false })}
+      >
+        <Alert
+          severity={snack.severity}
+          onClose={() => setSnack({ ...snack, open: false })}
+          sx={{ width: '100%' }}
+        >
           {snack.message}
         </Alert>
       </Snackbar>

@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { Button, Typography, Paper, Box, Grid, Container } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { Button, Typography, Paper, Box, Grid, Container } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import HealthDashboard from "../../components/dashboard/HealthDashboard";
-import PreventiveCare from "../../components/dashboard/PreventiveCare";
-import HealthTip from "../../components/dashboard/HealthTip";
+import HealthDashboard from '../../components/dashboard/HealthDashboard';
+import PreventiveCare from '../../components/dashboard/PreventiveCare';
+import HealthTip from '../../components/dashboard/HealthTip';
 import { styled } from '@mui/material/styles';
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
@@ -22,29 +22,32 @@ export default function Dashboard() {
   // Mock data - replace with actual API calls
   const preventiveCareReminders = [
     {
-      title: "Upcoming Annual blood test",
-      date: "23rd Jan 2025"
+      title: 'Upcoming Annual blood test',
+      date: '23rd Jan 2025',
     },
     {
-      title: "Dental Check-up",
-      date: "15th Feb 2025"
-    }
+      title: 'Dental Check-up',
+      date: '15th Feb 2025',
+    },
   ];
 
-  const healthTip = "Stay hydrated! Aim to drink at least 8 glasses of water per day.";
+  const healthTip =
+    'Stay hydrated! Aim to drink at least 8 glasses of water per day.';
 
   useEffect(() => {
-    fetch("http://localhost:4000/patients")
-      .then((res) => res.json())
+    fetch('http://localhost:4000/patients')
+      .then(res => res.json())
       .then(setPatients);
   }, []);
 
   // If provider, show patients assigned to them when providerId exists.
   const providerPatients = (() => {
     if (!patients || patients.length === 0) return [];
-    const hasProviderField = patients.some((p) => Object.prototype.hasOwnProperty.call(p, 'providerId'));
+    const hasProviderField = patients.some(p =>
+      Object.prototype.hasOwnProperty.call(p, 'providerId')
+    );
     if (user?.role === 'provider' && hasProviderField) {
-      return patients.filter((p) => p.providerId === user.id);
+      return patients.filter(p => p.providerId === user.id);
     }
     // Fallback: provider sees all patients if no providerId field
     if (user?.role === 'provider' || user?.role === 'admin') return patients;
@@ -59,7 +62,7 @@ export default function Dashboard() {
       title: reminder.title,
       date: reminder.date,
       createdAt: new Date().toISOString(),
-      from: user?.name || 'Provider'
+      from: user?.name || 'Provider',
     };
 
     const res = await fetch('http://localhost:4000/notifications', {
@@ -72,22 +75,22 @@ export default function Dashboard() {
     return res.json();
   };
 
-  const onSendReminderForCurrentUser = async (reminder) => {
+  const onSendReminderForCurrentUser = async reminder => {
     // send reminder for current user (self reminder)
     if (!user) throw new Error('No current user');
     return sendReminderToPatient({ id: user.id, name: user.name }, reminder);
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    navigate("/login");
+    localStorage.removeItem('token');
+    navigate('/login');
   };
 
   return (
     <Container maxWidth="lg">
-      <Box sx={{ p: 4, mx: "auto", mt: 4 }}>
+      <Box sx={{ p: 4, mx: 'auto', mt: 4 }}>
         {/* Header */}
-        <Box sx={{ display: "flex", justifyContent: "space-between", mb: 4 }}>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 4 }}>
           <Box>
             <Typography variant="h4" gutterBottom>
               Welcome, {user?.name || 'Guest'}
@@ -96,7 +99,7 @@ export default function Dashboard() {
           <Button variant="outlined" onClick={handleLogout}>
             Logout
           </Button>
-          <Button variant="outlined" onClick={()=>navigate('/profile')}>
+          <Button variant="outlined" onClick={() => navigate('/profile')}>
             Go to Profile
           </Button>
         </Box>
@@ -118,7 +121,7 @@ export default function Dashboard() {
                   Your Patients
                 </Typography>
                 <Grid container spacing={2}>
-                  {providerPatients.map((p) => (
+                  {providerPatients.map(p => (
                     <Grid item xs={12} sm={6} key={p.id}>
                       <Paper
                         sx={{
@@ -134,10 +137,7 @@ export default function Dashboard() {
                           {p.condition}
                         </Typography>
                         <Box sx={{ mt: 2 }}>
-                          <Button
-                            size="small"
-                            variant="contained"
-                          >
+                          <Button size="small" variant="contained">
                             Send Reminder
                           </Button>
                         </Box>
@@ -153,7 +153,10 @@ export default function Dashboard() {
           <Grid item xs={12} md={4}>
             <Grid container spacing={4}>
               <Grid item xs={12}>
-                <PreventiveCare reminders={preventiveCareReminders} onSendReminder={onSendReminderForCurrentUser} />
+                <PreventiveCare
+                  reminders={preventiveCareReminders}
+                  onSendReminder={onSendReminderForCurrentUser}
+                />
               </Grid>
               <Grid item xs={12}>
                 <HealthTip tip={healthTip} />

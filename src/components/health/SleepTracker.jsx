@@ -29,13 +29,11 @@ const SleepQualityBar = ({ quality }) => {
 };
 
 const SleepTracker = () => {
-  const { hours, minutes, startTime, endTime, quality } = useSelector(selectSleep);
+  const { hours, minutes, startTime, endTime, quality } =
+    useSelector(selectSleep);
 
   return (
-    <StatsCard
-      title="Sleep"
-      icon={<BedtimeIcon color="primary" />}
-    >
+    <StatsCard title="Sleep" icon={<BedtimeIcon color="primary" />}>
       <Box display="flex" alignItems="baseline" mb={2}>
         <Typography variant="h4" component="span" fontWeight="bold">
           {hours}

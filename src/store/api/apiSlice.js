@@ -2,9 +2,9 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const api = createApi({
   reducerPath: 'api',
-  baseQuery: fetchBaseQuery({ 
+  baseQuery: fetchBaseQuery({
     baseUrl: 'http://localhost:4000/',
-    prepareHeaders: (headers, { getState }) => {
+    prepareHeaders: headers => {
       // You can add auth headers here if needed
       const token = localStorage.getItem('token');
       if (token) {
@@ -13,12 +13,12 @@ export const api = createApi({
       return headers;
     },
   }),
-  endpoints: (builder) => ({
+  endpoints: builder => ({
     getUsers: builder.query({
       query: () => 'users',
     }),
     login: builder.mutation({
-      query: (credentials) => ({
+      query: () => ({
         url: 'users',
         method: 'GET', // This would typically be POST in a real API
         // In a real API, you'd send credentials in the body
@@ -29,7 +29,7 @@ export const api = createApi({
       transformResponse: async (response, meta, arg) => {
         const users = response;
         const user = users.find(
-          (u) => u.email === arg.email && u.password === arg.password
+          u => u.email === arg.email && u.password === arg.password
         );
         if (!user) {
           throw new Error('Invalid credentials');
@@ -43,8 +43,4 @@ export const api = createApi({
   }),
 });
 
-export const {
-  useGetUsersQuery,
-  useLoginMutation,
-  useGetPatientsQuery,
-} = api;
+export const { useGetUsersQuery, useLoginMutation, useGetPatientsQuery } = api;

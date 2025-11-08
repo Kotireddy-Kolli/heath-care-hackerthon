@@ -1,12 +1,17 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import Login from "./pages/Login";
-import RegisterInternal from "./pages/RegisterInternal";
-import RegisterExternal from "./pages/RegisterExternal";
-import ForgotPassword from "./pages/ForgotPassword";
-import Dashboard from "./pages/Dashboard";
-import ProtectedRoute from "./Components/ProtectedRoute";
-import Profile from "./pages/Profile";
+import React from 'react';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from 'react-router-dom';
+import Login from './pages/Login';
+import RegisterInternal from './pages/RegisterInternal';
+import RegisterExternal from './pages/RegisterExternal';
+import ForgotPassword from './pages/ForgotPassword';
+import Dashboard from './pages/Dashboard';
+import ProtectedRoute from './Components/ProtectedRoute';
+import Profile from './pages/Profile';
 
 export default function App() {
   return (

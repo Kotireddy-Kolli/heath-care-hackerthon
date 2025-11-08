@@ -9,7 +9,7 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    logout: (state) => {
+    logout: state => {
       state.currentUser = null;
       localStorage.removeItem('token');
     },
@@ -17,7 +17,7 @@ const userSlice = createSlice({
       state.currentUser = action.payload;
     },
   },
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder.addMatcher(
       api.endpoints.login.matchFulfilled,
       (state, { payload }) => {
@@ -30,6 +30,6 @@ const userSlice = createSlice({
 export const { logout, setCurrentUser } = userSlice.actions;
 
 // Export selectors
-export const selectCurrentUser = (state) => state.user.currentUser;
+export const selectCurrentUser = state => state.user.currentUser;
 
 export default userSlice.reducer;

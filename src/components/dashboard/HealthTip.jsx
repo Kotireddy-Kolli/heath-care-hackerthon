@@ -15,9 +15,7 @@ const HealthTip = ({ tip }) => {
     <StyledPaper>
       <Box display="flex" alignItems="center" mb={2}>
         <LightbulbIcon color="primary" sx={{ mr: 1 }} />
-        <Typography variant="h6">
-          Health Tip of the Day
-        </Typography>
+        <Typography variant="h6">Health Tip of the Day</Typography>
       </Box>
       <Typography variant="body1" color="text.secondary">
         {tip}

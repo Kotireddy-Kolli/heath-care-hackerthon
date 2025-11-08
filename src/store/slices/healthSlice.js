@@ -83,9 +83,9 @@ const healthSlice = createSlice({
       state.sleep = { ...state.sleep, ...action.payload };
     },
   },
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder
-      .addCase(fetchHealthData.pending, (state) => {
+      .addCase(fetchHealthData.pending, state => {
         state.status = 'loading';
       })
       .addCase(fetchHealthData.fulfilled, (state, action) => {
@@ -101,12 +101,13 @@ const healthSlice = createSlice({
   },
 });
 
-export const { updateSteps, updateActiveTime, updateSleep } = healthSlice.actions;
+export const { updateSteps, updateActiveTime, updateSleep } =
+  healthSlice.actions;
 
 // Selectors
-export const selectSteps = (state) => state.health.steps;
-export const selectActiveTime = (state) => state.health.activeTime;
-export const selectSleep = (state) => state.health.sleep;
-export const selectHealthStatus = (state) => state.health.status;
+export const selectSteps = state => state.health.steps;
+export const selectActiveTime = state => state.health.activeTime;
+export const selectSleep = state => state.health.sleep;
+export const selectHealthStatus = state => state.health.status;
 
 export default healthSlice.reducer;
