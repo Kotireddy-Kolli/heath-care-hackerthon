@@ -6,7 +6,7 @@ import StepsTracker from '../health/StepsTracker';
 import ActiveTimeCard from '../health/ActiveTimeCard';
 import SleepTracker from '../health/SleepTracker';
 
-const HealthDashboard = () => {
+const HealthDashboard = ({ fullWidth = false }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -14,8 +14,8 @@ const HealthDashboard = () => {
   }, [dispatch]);
 
   return (
-    <Container maxWidth="sm">
-      <Box py={3}>
+    <Container maxWidth={fullWidth ? false : 'sm'} disableGutters={fullWidth}>
+      <Box py={3} px={fullWidth ? 0 : 2}>
         <StepsTracker />
         <ActiveTimeCard />
         <SleepTracker />

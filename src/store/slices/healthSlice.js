@@ -57,6 +57,14 @@ const initialState = {
     quality: [],
     timestamp: null,
   },
+  preventiveCare: {
+    reminders: [],
+    lastUpdated: null,
+  },
+  healthTip: {
+    tip: '',
+    date: null,
+  },
   status: 'idle',
   error: null,
 };
