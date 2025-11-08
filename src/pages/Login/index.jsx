@@ -2,27 +2,28 @@ import React from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { TextField, Button, Paper, Box, Typography } from "@mui/material";
-import { useLoginMutation } from "../../store/api/apiSlice";
 
 export default function Login() {
   const navigate = useNavigate();
-  const [login, { isLoading }] = useLoginMutation();
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     setError,
   } = useForm();
 
   const onSubmit = async (data) => {
     try {
-      const user = await login(data).unwrap();
+      const res = await fetch("http://localhost:4000/users");
+      const users = await res.json();
+      const user = users.find(
+        (u) => u.email === data.email && u.password === data.password
+      );
+      if (!user) throw new Error("Invalid credentials");
       localStorage.setItem("token", JSON.stringify(user));
       navigate("/dashboard");
     } catch (err) {
-      setError("root", { 
-        message: err.message || "Login failed. Please try again." 
-      });
+      setError("root", { message: err.message });
     }
   };
 
@@ -52,8 +53,8 @@ export default function Login() {
         {errors.root && (
           <Typography color="error">{errors.root.message}</Typography>
         )}
-        <Button type="submit" variant="contained" disabled={isLoading}>
-          {isLoading ? 'Logging in...' : 'Login'}
+        <Button type="submit" variant="contained" disabled={isSubmitting}>
+          Login
         </Button>
         <Box sx={{ display: "flex", justifyContent: "space-between", mt: 1 }}>
           <Link to="/register/internal">Register (Internal)</Link>

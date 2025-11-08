@@ -15,15 +15,15 @@
       "role": "admin"
     }
   ],
-  "preventiveCareReminders": [
+  "patients": [
     {
-      "title": "Upcoming Annual blood test",
-      "date": "23rd Jan 2025"
-    },
-    {
-      "title": "Dental Check-up",
-      "date": "15th Feb 2025"
+      "id": 1,
+      "name": "Demo User",
+      "role": "user",
+      "age": 35,
+      "allergies": ["Peanuts"],
+      "medications": ["Aspirin"],
+      "goals": { "water": 8, "sleep": 7, "steps": 10000 }
     }
-  ],
-  "dailyHealthTips": ["Stay hydrated! Aim to drink at least 8 glasses of water per day."]
+  ]
 }

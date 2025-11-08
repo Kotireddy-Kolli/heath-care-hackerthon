@@ -16,7 +16,6 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
 
 export default function Dashboard() {
   const [patients, setPatients] = useState([]);
-  const [snack, setSnack] = useState({ open: false, message: '', severity: 'success' });
   const navigate = useNavigate();
   const user = useSelector(state => state.user.currentUser);
 
@@ -97,7 +96,7 @@ export default function Dashboard() {
           <Button variant="outlined" onClick={handleLogout}>
             Logout
           </Button>
-          <Button variant="outlined" onClick={handleLogout}>
+          <Button variant="outlined" onClick={()=>navigate('/profile')}>
             Go to Profile
           </Button>
         </Box>
@@ -138,14 +137,6 @@ export default function Dashboard() {
                           <Button
                             size="small"
                             variant="contained"
-                            onClick={async () => {
-                              try {
-                                await sendReminderToPatient(p, preventiveCareReminders[0]);
-                                setSnack({ open: true, message: `Reminder sent to ${p.name}`, severity: 'success' });
-                              } catch (err) {
-                                setSnack({ open: true, message: err.message || 'Failed to send reminder', severity: 'error' });
-                              }
-                            }}
                           >
                             Send Reminder
                           </Button>
@@ -170,13 +161,6 @@ export default function Dashboard() {
             </Grid>
           </Grid>
         </Grid>
-
-        {/* Snackbar for actions like sending reminders */}
-        <Snackbar open={snack.open} autoHideDuration={3000} onClose={() => setSnack({ ...snack, open: false })}>
-          <Alert severity={snack.severity} onClose={() => setSnack({ ...snack, open: false })} sx={{ width: '100%' }}>
-            {snack.message}
-          </Alert>
-        </Snackbar>
       </Box>
     </Container>
   );
